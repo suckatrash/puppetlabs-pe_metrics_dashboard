@@ -1,5 +1,7 @@
 class pe_metrics_dashboard::install(
   Boolean $add_dashboard_examples         =  $pe_metrics_dashboard::params::add_dashboard_examples,
+  Boolean $overwrite_dashboards           =  $pe_metrics_dashboard::params::overwrite_dashboards,
+  String $overwrite_dashboards_file       =  $pe_metrics_dashboard::params::overwrite_dashboards_file,
   String $influx_db_service_name          =  $pe_metrics_dashboard::params::influx_db_service_name,
   Array[String] $influxdb_database_name   =  $pe_metrics_dashboard::params::influxdb_database_name,
   String $grafana_version                 =  $pe_metrics_dashboard::params::grafana_version,
@@ -30,6 +32,7 @@ class pe_metrics_dashboard::install(
       group   => 0,
       content => file('pe_metrics_dashboard/influxdb.conf'),
       notify  => Service[$influx_db_service_name],
+      require => Package['influxdb'],
     }
   }
 
@@ -76,26 +79,9 @@ class pe_metrics_dashboard::install(
   }
 
   if $enable_telegraf {
-    package { 'telegraf':
-      ensure  => present,
-      require => Class['pe_metrics_dashboard::repos'],
-    }
-
-    if $configure_telegraf {
-
-      file {'/etc/telegraf/telegraf.conf':
-        ensure  => file,
-        owner   => 0,
-        group   => 0,
-        content => epp('pe_metrics_dashboard/telegraf.conf.epp'),
-        notify  => Service['telegraf'],
-      }
-    }
-
-    service { 'telegraf':
-      ensure  => running,
-      enable  => true,
-      require => [Package['telegraf'], Service[$influx_db_service_name]],
+    class { 'pe_metrics_dashboard::telegraf':
+      configure_telegraf     => $configure_telegraf,
+      influx_db_service_name => $influx_db_service_name,
     }
   }
 
@@ -150,19 +136,29 @@ class pe_metrics_dashboard::install(
     }
   }
 
-  if ($add_dashboard_examples) and ('pe_metrics' in $influxdb_database_name){
+
+  $overwrite_dashboards_ensure = $overwrite_dashboards ? {
+    true  =>  'absent',
+    false => 'file',
+  }
+  file { $overwrite_dashboards_file:
+    ensure => $overwrite_dashboards_ensure,
+    mode   => '0644',
+  }
+
+  if ($add_dashboard_examples) and ! $facts['overwrite_dashboards_disabled'] and ('pe_metrics' in $influxdb_database_name){
     class {'pe_metrics_dashboard::dashboards::pe_metrics':
       grafana_port => $grafana_http_port,
     }
   }
 
-  if ($add_dashboard_examples) and ('telegraf' in $influxdb_database_name){
+  if ($add_dashboard_examples) and ! $facts['overwrite_dashboards_disabled'] and ('telegraf' in $influxdb_database_name){
     class {'pe_metrics_dashboard::dashboards::telegraf':
       grafana_port => $grafana_http_port,
     }
   }
 
-  if ($add_dashboard_examples) and ('graphite' in $influxdb_database_name){
+  if ($add_dashboard_examples) and ! $facts['overwrite_dashboards_disabled'] and ('graphite' in $influxdb_database_name){
     class {'pe_metrics_dashboard::dashboards::graphite':
       grafana_port => $grafana_http_port,
     }

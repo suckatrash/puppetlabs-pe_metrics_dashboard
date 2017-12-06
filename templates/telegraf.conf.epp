@@ -10,7 +10,7 @@
   precision = ""
   debug = false
   quiet = false
-  logfile = ""
+  logfile = "/var/log/telegraf/telegraf.log"
   hostname = ""
   omit_hostname = false
 [[outputs.influxdb]]
@@ -33,8 +33,9 @@
   ]
   method = "GET"
   insecure_skip_verify = true
+
 [[inputs.httpjson]]
-  name = "puppetdb_stats"
+  name = "puppetdb_command_queue"
   servers = [
     <%# -%>
     <% unless $pe_metrics_dashboard::install::puppetdb_list.empty {-%>
@@ -46,3 +47,24 @@
   ]
   method = "GET"
   insecure_skip_verify = true
+
+<%# -%>
+<% unless $puppetdb_metrics.empty {-%>
+<% $puppetdb_metrics.each | $metric| {-%>
+[[inputs.httpjson]]
+  name = "puppetdb_<%= $metric['name'] %>"
+  servers = [
+    <%# -%>
+    <% unless $pe_metrics_dashboard::install::puppetdb_list.empty {-%>
+    <% $pe_metrics_dashboard::install::puppetdb_list.each |$master_list| {-%>
+    "https://<%= $master_list %>:8081/metrics/v1/mbeans/<%= $metric['url'] %>",
+    <% } -%>
+    <% } -%>
+    <%# -%>
+  ]
+  method = "GET"
+  insecure_skip_verify = true
+
+<% } -%>
+<% } -%>
+<%# -%>

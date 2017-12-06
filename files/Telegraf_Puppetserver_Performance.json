@@ -37,7 +37,17 @@
   "graphTooltip": 0,
   "hideControls": false,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "telegraf"
+      ],
+      "type": "dashboards"
+    }
+  ],
   "refresh": "5s",
   "rows": [
     {
@@ -85,7 +95,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "ave. free jrubies",
+              "alias": "ave-free-jrubies",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -93,6 +103,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -104,6 +120,8 @@
               "measurement": "httpjson_puppet_stats",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT distinct(\"pe-jruby-metrics_status_experimental_metrics_average-free-jrubies\") FROM \"httpjson_puppet_stats\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -120,10 +138,16 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             },
             {
-              "alias": "ave. requested jrubies",
+              "alias": "ave-requested-jrubies",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -131,6 +155,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -142,6 +172,8 @@
               "measurement": "httpjson_puppet_stats",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT distinct(\"pe-jruby-metrics_status_experimental_metrics_average-requested-jrubies\") FROM \"httpjson_puppet_stats\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -158,7 +190,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             },
             {
               "alias": "ave-borrow-time",
@@ -172,6 +210,12 @@
                 },
                 {
                   "params": [
+                    "server"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
                     "null"
                   ],
                   "type": "fill"
@@ -180,6 +224,8 @@
               "measurement": "httpjson_puppet_stats",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT distinct(\"pe-jruby-metrics_status_experimental_metrics_average-borrow-time\") FROM \"httpjson_puppet_stats\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -196,7 +242,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             },
             {
               "alias": "ave-wait-time",
@@ -210,6 +262,12 @@
                 },
                 {
                   "params": [
+                    "server"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
                     "null"
                   ],
                   "type": "fill"
@@ -218,6 +276,8 @@
               "measurement": "httpjson_puppet_stats",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT distinct(\"pe-jruby-metrics_status_experimental_metrics_average-wait-time\") FROM \"httpjson_puppet_stats\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -234,7 +294,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -341,6 +407,12 @@
                 },
                 {
                   "params": [
+                    "server"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
                     "null"
                   ],
                   "type": "fill"
@@ -366,7 +438,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             },
             {
               "alias": "heap used",
@@ -377,6 +455,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -404,7 +488,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             },
             {
               "alias": "uptime",
@@ -415,6 +505,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -442,7 +538,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -525,7 +627,6 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "ave requested jrubies",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -533,6 +634,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -560,13 +667,19 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ave-requested-jrubies",
+          "title": "Average Requested Jrubies",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -631,7 +744,6 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "ave borrow time",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -639,6 +751,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -666,13 +784,19 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ave-borrow-time",
+          "title": "Average Borrow Time",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -749,7 +873,6 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "ave free jrubies",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -757,6 +880,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -784,13 +913,19 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ave-free-jrubies",
+          "title": "Average Free Jrubies",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -855,7 +990,6 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "ave wait time",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -863,6 +997,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -890,13 +1030,19 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/$server/"
+                }
+              ]
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ave-wait-time",
+          "title": "Average Wait Time",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -940,9 +1086,33 @@
   ],
   "schemaVersion": 14,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "telegraf",
+    "puppetserver"
+  ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "influxdb_telegraf",
+        "hide": 0,
+        "includeAll": true,
+        "label": "server",
+        "multi": true,
+        "name": "server",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"server\"",
+        "refresh": 1,
+        "regex": "/^https://([^:]+):/",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
@@ -975,5 +1145,5 @@
   },
   "timezone": "",
   "title": "Telegraf Puppetserver Performance",
-  "version": 7
+  "version": 5
 }

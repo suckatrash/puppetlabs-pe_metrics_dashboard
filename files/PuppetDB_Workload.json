@@ -37,7 +37,18 @@
   "graphTooltip": 0,
   "hideControls": false,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "archive"
+      ],
+      "targetBlank": true,
+      "type": "dashboards"
+    }
+  ],
   "refresh": false,
   "rows": [
     {
@@ -76,6 +87,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -116,7 +128,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -199,6 +217,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -239,7 +258,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -310,6 +335,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -350,7 +376,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -421,6 +453,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -461,7 +494,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -544,6 +583,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -578,7 +618,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -649,6 +695,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -656,6 +703,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -683,7 +736,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -754,6 +813,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -761,6 +821,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -788,7 +854,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -871,6 +943,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -878,6 +951,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -905,7 +984,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -976,6 +1061,7 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "$tag_server",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -983,6 +1069,12 @@
                     "$__interval"
                   ],
                   "type": "time"
+                },
+                {
+                  "params": [
+                    "server"
+                  ],
+                  "type": "tag"
                 },
                 {
                   "params": [
@@ -1010,7 +1102,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "server",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -1060,9 +1158,32 @@
   ],
   "schemaVersion": 14,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "archive"
+  ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "influxdb_pe_metrics",
+        "hide": 0,
+        "includeAll": true,
+        "label": "server",
+        "multi": true,
+        "name": "server",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"server\"",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
@@ -1094,6 +1215,6 @@
     ]
   },
   "timezone": "",
-  "title": "PuppetDB Workload",
-  "version": 3
+  "title": "Archive PuppetDB Workload",
+  "version": 9
 }
