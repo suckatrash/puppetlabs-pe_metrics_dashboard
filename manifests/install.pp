@@ -67,6 +67,12 @@ class pe_metrics_dashboard::install(
         require => Package['grafana'],
       }
     }
+    else {
+      #error if the file is not actually present
+      unless File["$dashboard_cert_file"] {
+        err("$dashboard_cert_file does not exist")
+      }
+    }
 
     if $dashboard_cert_key == "/etc/grafana/${clientcert}_key.pem" {
       file { $dashboard_cert_key:
@@ -75,6 +81,12 @@ class pe_metrics_dashboard::install(
         owner   => 'grafana',
         mode    => '0400',
         require => Package['grafana'],
+      }
+    }
+    else {
+      #error if the file is not actually present
+      unless File["$dashboard_cert_key"] {
+        err("$dashboard_cert_key does not exist")
       }
     }
 
