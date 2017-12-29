@@ -67,7 +67,7 @@ class pe_metrics_dashboard::install(
         require => Package['grafana'],
       }
     }
-    elsif !File["$dashboard_cert_file"] { 
+    elsif !file_exists("$dashboard_cert_file") { 
       #error if the file is not actually present
       err("$dashboard_cert_file does not exist")
     }
@@ -81,7 +81,7 @@ class pe_metrics_dashboard::install(
         require => Package['grafana'],
       }
     }
-    elsif !File["$dashboard_cert_key"] { 
+    elsif !file_exists("$dashboard_cert_key") { 
       #error if the file is not actually present
       err("$dashboard_cert_key does not exist")
     }
