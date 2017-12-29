@@ -56,20 +56,26 @@ class pe_metrics_dashboard::install(
             },
     }
 
-    file { $dashboard_cert_file:
-      ensure  => present,
-      source  => "${facts['puppet_sslpaths']['certdir']['path']}/${clientcert}.pem",
-      owner   => 'grafana',
-      mode    => '0400',
-      require => Package['grafana'],
+    #Only create the certificate files if they are not the default (user wants to use their own)
+
+    if $dashboard_cert_file != "/etc/grafana/${clientcert}_cert.pem" {
+      file { $dashboard_cert_file:
+        ensure  => present,
+        source  => "${facts['puppet_sslpaths']['certdir']['path']}/${clientcert}.pem",
+        owner   => 'grafana',
+        mode    => '0400',
+        require => Package['grafana'],
+      }
     }
 
-    file { $dashboard_cert_key:
-      ensure  => present,
-      source  => "${facts['puppet_sslpaths']['privatekeydir']['path']}/${clientcert}.pem",
-      owner   => 'grafana',
-      mode    => '0400',
-      require => Package['grafana'],
+    if $dashboard_cert_key != "/etc/grafana/${clientcert}_key.pem" {
+      file { $dashboard_cert_key:
+        ensure  => present,
+        source  => "${facts['puppet_sslpaths']['privatekeydir']['path']}/${clientcert}.pem",
+        owner   => 'grafana',
+        mode    => '0400',
+        require => Package['grafana'],
+      }
     }
 
     $uri = 'https'
